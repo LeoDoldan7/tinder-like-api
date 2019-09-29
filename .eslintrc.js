@@ -1,6 +1,8 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
-  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  parser: '@typescript-eslint/parser',  // Specifies the ESLint parser
+  extends: [
+    'plugin:@typescript-eslint/recommended',  // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+  ],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
@@ -32,7 +34,6 @@ module.exports = {
         after: true
       }
     ],
-    'linebreak-style': ['error', 'unix'],
     'lines-between-class-members': ['error', 'always'],
     'no-lonely-if': 'error',
     'no-mixed-spaces-and-tabs': 'error',
@@ -73,7 +74,7 @@ module.exports = {
     'no-invalid-this': 'error',
     'no-lone-blocks': 'error',
     'no-loop-func': 'error',
-    // "no-multi-spaces": "warn",
+    // 'no-multi-spaces': 'warn',
     'no-multi-str': 'warn',
     'no-new': 'error',
     'no-new-func': 'error',
@@ -125,6 +126,7 @@ module.exports = {
     ],
     'no-labels': 'error',
     'no-unused-labels': 'error',
-    'eol-last': ['error', 'always']
+    'eol-last': ['error', 'always'],
+    '@typescript-eslint/explicit-function-return-type': ['error', { allowExpressions: true }]
   }
 };
