@@ -1,7 +1,7 @@
 import { UserService } from './../user-service';
 import { compareSync } from 'bcryptjs';
 import { JWTPayload } from './../../passport';
-import { User as UserModel } from './../../../database/models/user';
+import { User as UserModel } from '../../../database/models/User';
 import { AuthService } from './../auth-service';
 import Container from 'typedi';
 import { Result } from '../../../core/result';

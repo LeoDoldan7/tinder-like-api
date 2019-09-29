@@ -26,8 +26,6 @@ export const dbSettings = {
   models:   [join(__dirname, '../', 'database/models/**/*')]
 };
 
-console.log(dbSettings);
-
 export const testingDbSettings = {
   database: process.env.TESTING_DB_NAME,
   host:     process.env.TESTING_DB_HOST,

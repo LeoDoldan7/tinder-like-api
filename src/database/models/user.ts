@@ -1,12 +1,9 @@
-import { MatchUser } from './MatchUser';
-import { Match } from './Match';
 import {
   Model,
   PrimaryKey,
   IsUUID,
   Column,
   Table,
-  BelongsToMany,
   Unique,
   CreatedAt,
   UpdatedAt,
@@ -43,9 +40,6 @@ export class User extends Model {
 
   @Column
   elo: number;
-
-  @BelongsToMany(() => Match, () => MatchUser)
-  matches: Match[];
 
   @CreatedAt
   createdAt: Date;

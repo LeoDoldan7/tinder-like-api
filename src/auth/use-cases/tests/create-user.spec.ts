@@ -1,11 +1,13 @@
+import { User } from './../../domain/user';
 import { AuthService } from './../../services/auth-service';
-import { UserSignUpRequestDTO } from './../../dto/user-dto';
+import { SignUpRequestDTO } from './../../dto/user-dto';
 import { CreateUserUseCase } from './../create-user';
 import Container from 'typedi';
 import { UserService } from '../../services/user-service';
+import { Result } from '../../../core/result';
 
 describe('Testing Auth subsystem, CreateUserUseCase', () => {
-  let userData: UserSignUpRequestDTO;
+  let userData: SignUpRequestDTO;
   let useCase: CreateUserUseCase;
 
   class MockAuthService {
@@ -39,31 +41,49 @@ describe('Testing Auth subsystem, CreateUserUseCase', () => {
 
   test('Creating user without first name', async() => {
     delete userData.firstName;
-    const result = await useCase.execute(userData);
-    expect(result.isSuccess).toBe(false);
+    await useCase.execute(userData)
+      .then(() => {
+        fail('The test failed because the user was created successfully.');
+      })
+      .catch((err: Result<User>) => {
+        expect(err.isFailure).toBe(true);
+      })
+    ;
   });
 
   test('Creating user without last name', async() => {
     delete userData.lastName;
-    const result = await useCase.execute(userData);
-    expect(result.isSuccess).toBe(false);
+    await useCase.execute(userData)
+      .then(() => fail('The test failed because the user was created successfully.'))
+      .catch((err: Result<User>) => {
+        expect(err.isFailure).toBe(true);
+      });
   });
 
   test('Creating user without password', async() => {
     delete userData.password;
-    const result = await useCase.execute(userData);
-    expect(result.isSuccess).toBe(false);
+    await useCase.execute(userData)
+      .then(() => fail('The test failed because the user was created successfully.'))
+      .catch((err: Result<User>) => {
+        expect(err.isFailure).toBe(true);
+      });
   });
 
   test('Creating user without email', async() => {
     delete userData.email;
-    const result = await useCase.execute(userData);
-    expect(result.isSuccess).toBe(false);
+    await useCase.execute(userData)
+      .then(() => fail('The test failed because the user was created successfully.'))
+      .catch((err: Result<User>) => {
+        expect(err.isFailure).toBe(true);
+      });
   });
 
   test('Creating user without age', async() => {
     delete userData.age;
-    const result = await useCase.execute(userData);
-    expect(result.isSuccess).toBe(false);
+    await useCase.execute(userData)
+      .then(() => fail('The test failed because the user was created successfully.'))
+      .catch((err: Result<User>) => {
+        expect(err.isFailure).toBe(true);
+      });
   });
 });

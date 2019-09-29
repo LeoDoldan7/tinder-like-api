@@ -1,4 +1,4 @@
-import { User as UserModel } from './../../database/models/User';
+import { User as UserModel } from '../../database/models/User';
 import { UserMapper } from './../mappers/user-mapper';
 import { SignUpRequestDTO } from './../dto/user-dto';
 import { User } from './../domain/user';
