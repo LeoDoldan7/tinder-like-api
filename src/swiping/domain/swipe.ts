@@ -1,23 +1,24 @@
 import { User } from './user';
-import { Entity } from './../../core/entity';
+import { Entity, EntityId } from './../../core/entity';
 import { Candidate } from './candidate';
 import { Result } from '../../core/result';
 import { SWIPING_ERRORS } from '../errors';
 
 interface SwipeProps {
-  liked: boolean;
-  fromId?: string;
-  toId?: string;
-  from?: User;
-  to?: Candidate;
+  right: boolean;
+  userId?: string;
+  candidateId?: string;
+  user?: User;
+  candidate?: Candidate;
 }
 
 export class Swipe extends Entity<SwipeProps> {
+
   static create(props: SwipeProps, id?: string): Result<Swipe> {
-    if (!props.from || !props.fromId) {
+    if (!props.user && !props.userId) {
       return Result.fail<Swipe>(SWIPING_ERRORS.NO_USER_ID);
     }
-    if (!props.to || !props.toId) {
+    if (!props.candidate && !props.candidateId) {
       return Result.fail<Swipe>(SWIPING_ERRORS.NO_CANDIDATE_ID);
     }
     this.parseProps(props);
@@ -25,32 +26,32 @@ export class Swipe extends Entity<SwipeProps> {
     return Result.ok<Swipe>(newSwipe);
   }
 
-  getFromId() {
-    if (this.props.from) {
-      return this.props.from.id;
+  getUserId(): EntityId {
+    if (this.props.user) {
+      return this.props.user.id;
     } else {
-      return this.props.fromId;
+      return this.props.userId;
     }
   }
 
-  getToId() {
-    if (this.props.to) {
-      return this.props.to.id;
+  getCandidateId(): EntityId {
+    if (this.props.candidate) {
+      return this.props.candidate.id;
     } else {
-      return this.props.toId;
+      return this.props.candidateId;
     }
   }
 
-  static parseProps(props: SwipeProps) {
-    if (props.from && props.from.id) {
-      props.fromId = props.from.id;
+  static parseProps(props: SwipeProps): void {
+    if (props.user && props.user.id) {
+      props.userId = props.user.id;
     } else {
-      props.from = { id: props.fromId, props: null };
+      props.user = { id: props.userId, props: null };
     }
-    if (props.to && props.to.id) {
-      props.toId = props.to.id;
+    if (props.candidate && props.candidate.id) {
+      props.candidateId = props.candidate.id;
     } else {
-      props.to = { id: props.toId, props: null };
+      props.candidate = { id: props.candidateId, props: null };
     }
   }
 }

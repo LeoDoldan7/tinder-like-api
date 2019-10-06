@@ -8,7 +8,7 @@
     "serve": "npm run build & node --inspect=5858 -r ts-node/register src/app.ts",
     "build": "tsc",
     "test": "jest",
-    "restartdb": "sequelize db:drop && sequelize db:create && sequelize db:migrate"
+    "restartdb": "npm run build && sequelize db:drop && sequelize db:create && sequelize db:migrate"
   },
   "repository": {
     "type": "git",

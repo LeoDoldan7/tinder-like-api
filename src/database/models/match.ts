@@ -1,22 +1,17 @@
-import { User } from './user';
-import {
-  Entity,
-  PrimaryColumn,
-  Column,
-  BaseEntity,
-  ManyToMany,
-  JoinTable
-} from 'typeorm';
+import { Table, Model, IsUUID, PrimaryKey, Column, BelongsToMany } from 'sequelize-typescript';
+import { User } from './User';
+import { MatchUser } from './MatchUser';
 
-@Entity()
-export class Match extends BaseEntity {
-  @PrimaryColumn('uuid')
+@Table({ freezeTableName: true })
+export class Match extends Model {
+  @IsUUID('4')
+  @PrimaryKey
+  @Column
   id: string;
 
-  @Column()
+  @Column
   cancelled: boolean;
 
-  @ManyToMany(_ => User)
-  @JoinTable({ name: 'match_user' })
+  @BelongsToMany(() => User, () => MatchUser)
   users: User[];
 }

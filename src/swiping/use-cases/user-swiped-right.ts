@@ -10,27 +10,27 @@ import { Inject, Service } from 'typedi';
 @Service()
 export class UserSwipedRightUseCase implements UseCase<Swipe, Result<Match>> {
   @Inject()
-  swipeService: SwipeService;
+  private swipeService: SwipeService;
 
   @Inject()
-  createMatchUseCase: CreateMatchUseCase;
+  private createMatchUseCase: CreateMatchUseCase;
 
   async execute(swipe: Swipe): Promise<Result<Match>> {
     const candidateSwipedRightToo = await this.candidateSwipedRightToo(swipe);
     if (candidateSwipedRightToo) {
       return this.createMatchUseCase.execute({
-        users: [swipe.props.from, swipe.props.to] as User[]
+        users: [swipe.props.user, swipe.props.candidate] as User[]
       });
     }
-    return Result.fail<Match>('Candidate did not liked back');
+    return Result.fail<Match>('Candidate did not like back');
   }
 
   async candidateSwipedRightToo(swipe: Swipe): Promise<boolean> {
-    const swipedBackResult = await this.swipeService.findOneSwipe({
+    const swipedBackResult = await this.swipeService.findOne({
       where: {
-        fromId: swipe.getToId(),
-        toId: swipe.getToId(),
-        liked: true
+        userId:      swipe.getUserId(),
+        candidateId: swipe.getCandidateId(),
+        right:       true
       }
     });
     return swipedBackResult.isSuccess;

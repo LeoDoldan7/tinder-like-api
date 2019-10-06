@@ -1,5 +1,5 @@
 import { UserMapper } from './user-mapper';
-import { Swipe as SwipeModel } from './../../database/models/swipe';
+import { Swipe as SwipeModel } from '../../database/models/Swipe';
 import { Swipe } from './../domain/swipe';
 import { Service, Inject } from 'typedi';
 import { SwipeDTO } from '../infrastructure/dto/swipe-dto';
@@ -11,33 +11,35 @@ export class SwipeMapper {
   userMapper: UserMapper;
 
   toPersistance(swipe: Swipe): SwipeModel {
-    return SwipeModel.create({
-      id: swipe.id as string,
-      fromId: swipe.getFromId() as string,
-      toId: swipe.getToId() as string,
-      liked: swipe.props.liked
+    return SwipeModel.build({
+      id:          swipe.id,
+      userId:      swipe.getUserId(),
+      candidateId: swipe.getCandidateId(),
+      right:       swipe.props.right
     });
   }
 
   fromDTOtoDomain(dto: SwipeDTO): Result<Swipe> {
     return Swipe.create({
-      liked: dto.liked
+      right:       dto.right,
+      userId:      dto.userId,
+      candidateId: dto.candidateId
     });
   }
 
   toDomain(swipeEntity: SwipeModel): Result<Swipe> {
-    const userOrUndefined = swipeEntity.from
-      ? this.userMapper.toDomainUser(swipeEntity.from)
+    const userOrUndefined = swipeEntity.user
+      ? this.userMapper.toDomainUser(swipeEntity.user)
       : undefined;
-    const candidateOrUndefined = swipeEntity.to
-      ? this.userMapper.toDomainCandidate(swipeEntity.to)
+    const candidateOrUndefined = swipeEntity.candidate
+      ? this.userMapper.toDomainCandidate(swipeEntity.candidate)
       : undefined;
     return Swipe.create(
       {
-        liked: swipeEntity.liked,
-        from: userOrUndefined,
-        to: candidateOrUndefined,
-        fromId: userOrUndefined ? userOrUndefined.id : undefined
+        right:     swipeEntity.right,
+        user:      userOrUndefined,
+        candidate: candidateOrUndefined,
+        userId:    userOrUndefined ? userOrUndefined.id : undefined
       },
       swipeEntity.id
     );

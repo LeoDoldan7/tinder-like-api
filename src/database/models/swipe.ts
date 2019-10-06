@@ -1,32 +1,27 @@
-import { User } from './user';
-import {
-  Entity,
-  PrimaryColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  BaseEntity
-} from 'typeorm';
+import { Table, Model, IsUUID, PrimaryKey, Column, BelongsTo, ForeignKey } from 'sequelize-typescript';
+import { User } from './User';
 
-@Entity()
-export class Swipe extends BaseEntity {
-  @PrimaryColumn('uuid')
+@Table({ freezeTableName: true })
+export class Swipe extends Model {
+  @IsUUID('4')
+  @PrimaryKey
+  @Column
   id: string;
 
-  @Column()
-  liked: boolean;
+  @Column
+  right: boolean;
 
-  @Column({ name: 'from_id' })
-  fromId: string;
+  @ForeignKey(() => User)
+  @Column
+  userId: string;
 
-  @Column({ name: 'to_id' })
-  toId: string;
+  @ForeignKey(() => User)
+  @Column
+  candidateId: string;
 
-  @ManyToOne(_ => User)
-  @JoinColumn({ name: 'from_id' })
-  from?: User;
+  @BelongsTo(() => User, 'userId')
+  user?: User;
 
-  @ManyToOne(_ => User)
-  @JoinColumn({ name: 'to_id' })
-  to?: User;
+  @BelongsTo(() => User, 'candidateId')
+  candidate?: User;
 }

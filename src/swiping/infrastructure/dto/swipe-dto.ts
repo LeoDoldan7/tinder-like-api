@@ -1,5 +1,5 @@
 export interface SwipeDTO {
-  liked: boolean;
+  right: boolean;
   userId: string;
   candidateId: string;
 }

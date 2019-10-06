@@ -5,6 +5,9 @@ import { serverSettings, dbSettings } from './config';
 import cors from 'cors';
 import helmet from 'helmet';
 import router from './router';
+import { EventHub } from './core/event-hub';
+
+EventHub.init();
 
 const app = express();
 

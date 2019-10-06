@@ -4,7 +4,11 @@ import Container from 'typedi';
 export class Server {
   public sequelize: Sequelize;
 
-  constructor(private sequelizeOptions: SequelizeOptions) { }
+  private sequelizeOptions: SequelizeOptions
+
+  constructor(sequelizeOptions: SequelizeOptions) {
+    this.sequelizeOptions = sequelizeOptions;
+  }
 
   init(): void {
     this.initSequelize();
