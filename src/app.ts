@@ -1,3 +1,4 @@
+import './swiping';
 import { Server } from './server';
 import 'reflect-metadata';
 import express, { json, urlencoded } from 'express';
@@ -5,9 +6,6 @@ import { serverSettings, dbSettings } from './config';
 import cors from 'cors';
 import helmet from 'helmet';
 import router from './router';
-import { EventHub } from './core/event-hub';
-
-EventHub.init();
 
 const app = express();
 

@@ -4,9 +4,8 @@ import { SwipeService } from '../services/swipe-service';
 import { UseCase } from '../../core/use-case';
 import { Result } from '../../core/result';
 import { Inject, Service } from 'typedi';
-import { swipingEvents } from '../domain/events';
 import { SwipeDTO } from '../infrastructure/dto/swipe-dto';
-import { SwipingEventHub } from '../infrastructure/event-hub';
+import { swipingEventEmitter, swipingEvents } from '../domain/events';
 
 @Service()
 export class UserSwipedUseCase implements UseCase<SwipeDTO, Result<Swipe>> {
@@ -15,9 +14,6 @@ export class UserSwipedUseCase implements UseCase<SwipeDTO, Result<Swipe>> {
 
   @Inject()
   private mapper: SwipeMapper;
-
-  @Inject()
-  private eventHub: SwipingEventHub
 
   async execute(dto: SwipeDTO): Promise<Result<Swipe>> {
     const result = this.mapper.fromDTOtoDomain(dto);
@@ -33,6 +29,7 @@ export class UserSwipedUseCase implements UseCase<SwipeDTO, Result<Swipe>> {
       throw saveResult.error;
     }
     if (saveResult.isSuccess && swipe.props.right) {
+      swipingEventEmitter.emit(swipingEvents.USER_SWIPED_RIGHT);
     }
 
     return result;
