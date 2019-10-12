@@ -28,8 +28,8 @@ export class UserSwipedRightUseCase implements UseCase<Swipe, Result<Match>> {
   async candidateSwipedRightToo(swipe: Swipe): Promise<boolean> {
     const swipedBackResult = await this.swipeService.findOne({
       where: {
-        userId:      swipe.getUserId(),
-        candidateId: swipe.getCandidateId(),
+        userId:      swipe.getCandidateId(),
+        candidateId: swipe.getUserId(),
         right:       true
       }
     });
