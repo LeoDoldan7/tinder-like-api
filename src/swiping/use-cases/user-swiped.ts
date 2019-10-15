@@ -29,7 +29,7 @@ export class UserSwipedUseCase implements UseCase<SwipeDTO, Result<Swipe>> {
       throw saveResult.error;
     }
     if (saveResult.isSuccess && swipe.props.right) {
-      swipingEventEmitter.emit(swipingEvents.USER_SWIPED_RIGHT);
+      swipingEventEmitter.emit(swipingEvents.USER_SWIPED_RIGHT, swipe);
     }
 
     return result;

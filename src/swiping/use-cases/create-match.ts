@@ -1,3 +1,4 @@
+import { Candidate } from './../domain/candidate';
 import { User } from './../domain/user';
 import { Match } from '../domain/match';
 import { UseCase } from '../../core/use-case';
@@ -6,7 +7,7 @@ import { Service } from 'typedi';
 import { swipingEvents, swipingEventEmitter } from '../domain/events';
 
 interface MatchRequest {
-  users: User[];
+  users: (User | Candidate)[];
 }
 
 @Service()

@@ -45,6 +45,7 @@ export class UserMapper {
   toToken(user: User): TokenPayload {
     return {
       id:           user.id,
+      email:        user.props.email,
       securityCode: user.props.securityCode
     };
   }

@@ -14,7 +14,7 @@ export class SwipingController {
         candidateId: req.body.candidateId,
         right:       req.body.right
       });
-      res.status(200).send();
+      res.sendStatus(200);
     } catch (err) {
       if (err instanceof Result) {
         next(err.error);

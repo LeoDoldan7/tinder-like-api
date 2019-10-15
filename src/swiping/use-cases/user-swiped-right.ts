@@ -1,5 +1,4 @@
 import { CreateMatchUseCase } from './create-match';
-import { User } from './../domain/user';
 import { SwipeService } from './../services/swipe-service';
 import { Match } from './../domain/match';
 import { Swipe } from './../domain/swipe';
@@ -19,7 +18,7 @@ export class UserSwipedRightUseCase implements UseCase<Swipe, Result<Match>> {
     const candidateSwipedRightToo = await this.candidateSwipedRightToo(swipe);
     if (candidateSwipedRightToo) {
       return this.createMatchUseCase.execute({
-        users: [swipe.props.user, swipe.props.candidate] as User[]
+        users: [swipe.props.user, swipe.props.candidate]
       });
     }
     return Result.fail<Match>('Candidate did not like back');
