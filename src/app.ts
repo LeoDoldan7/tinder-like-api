@@ -1,3 +1,4 @@
+import './swiping';
 import { Server } from './server';
 import 'reflect-metadata';
 import express, { json, urlencoded } from 'express';

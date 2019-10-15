@@ -8,7 +8,7 @@
     "serve": "npm run build & node --inspect=5858 -r ts-node/register src/app.ts",
     "build": "tsc",
     "test": "jest",
-    "restartdb": "sequelize db:drop && sequelize db:create && sequelize db:migrate"
+    "restartdb": "npm run build && sequelize db:drop && sequelize db:create && sequelize db:migrate"
   },
   "repository": {
     "type": "git",
@@ -29,8 +29,6 @@
     "helmet": "^3.21.0",
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.4.0",
-    "passport-facebook": "^3.0.0",
-    "passport-http": "^0.3.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^7.12.1",
@@ -50,8 +48,6 @@
     "@types/jsonwebtoken": "^8.3.4",
     "@types/node": "^12.7.5",
     "@types/passport": "^1.0.1",
-    "@types/passport-facebook": "^2.1.9",
-    "@types/passport-http": "^0.3.8",
     "@types/passport-jwt": "^3.0.2",
     "@types/passport-local": "^1.0.33",
     "@types/uuid": "^3.4.5",
