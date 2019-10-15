@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import swipe from '../swiping/routes';
 import { authenticate } from 'passport';
+import swipe from '../swiping/routes';
 
 const router = Router();
 

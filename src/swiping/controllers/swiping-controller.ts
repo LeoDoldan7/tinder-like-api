@@ -9,11 +9,7 @@ export class SwipingController {
   async userSwiped(req: any, res: Response, next: NextFunction): Promise<void> {
     try {
       const userSwipedUseCase = Container.get(UserSwipedUseCase);
-      await userSwipedUseCase.execute({
-        userId:      req.body.userId,
-        candidateId: req.body.candidateId,
-        right:       req.body.right
-      });
+      await userSwipedUseCase.execute(req.body);
       res.sendStatus(200);
     } catch (err) {
       if (err instanceof Result) {
